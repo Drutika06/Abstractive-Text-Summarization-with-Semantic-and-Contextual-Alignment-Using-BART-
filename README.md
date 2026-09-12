@@ -1,9 +1,9 @@
 
 ## 📌 Overview
 
-This project presents an **Abstractive Text Summarization System** built using the **Bidirectional and Auto-Regressive Transformer (BART)** architecture. The system is designed to transform long-form news articles into concise, coherent, and contextually meaningful summaries. Unlike extractive summarization methods which simply select sentences from an article, this project uses the **BART encoder-decoder architecture** to understand the context of the source article and generate a new summary in natural language. The project further evaluates summary quality from both **lexical and semantic perspectives** using **ROUGE** and **BERTScore**, allowing the generated summaries to be assessed not only by word overlap but also by their semantic similarity to the reference summaries.
+This project presents an **Abstractive Text Summarization System** built using the **Bidirectional and Auto-Regressive Transformer (BART)** architecture. The system is designed to transform long-form news articles into concise, coherent, and contextually meaningful summaries. Unlike traditional extractive summarization methods, which primarily select existing sentences from an article, this project uses the **BART encoder-decoder architecture** to understand the contextual relationships within the source article and generate a new summary in natural language. The approach further emphasizes **semantic and contextual alignment**, with the generated summaries designed to preserve the key meaning, context, and important information of the original article while producing a concise representation.
 
-The model is fine-tuned on the **CNN/DailyMail 3.0.0 dataset** using Hugging Face Transformers and PyTorch.
+The model is fine-tuned on the **CNN/DailyMail 3.0.0 dataset** using **Hugging Face Transformers** and **PyTorch**.
 
 ---
 
@@ -14,7 +14,7 @@ The model is fine-tuned on the **CNN/DailyMail 3.0.0 dataset** using Hugging Fac
 * **Semantic Alignment:** Evaluate whether generated summaries preserve the meaning of the reference summaries using BERTScore.
 * **Lexical Evaluation:** Measure word and phrase overlap using ROUGE-1, ROUGE-2, and ROUGE-L.
 * **Controlled Generation:** Use beam search, minimum/maximum generation lengths, and n-gram repetition constraints to improve summary quality.
-* **Training Analysis:** Compare model performance at 3, 6, and 9 total training epochs to study the effect of additional fine-tuning.
+* **Training Analysis:** Compare model performance at 3, 6, and 9 likewise training epochs to study the effect of additional fine-tuning.
 * **Model Selection:** Save and evaluate the best-performing model based on validation ROUGE-1.
 
 ---
@@ -169,31 +169,11 @@ The best model is selected using **ROUGE-1** as the primary model-selection metr
 
 ## 🧪 Progressive Training Strategy
 
-To investigate the effect of additional training, the project performs progressive fine-tuning.
+To investigate the effect of continued fine-tuning, the project uses a progressive training strategy.
 
-### Stage 1 — 3 Epochs
+The model is trained through multiple training stages, where a previously trained checkpoint is loaded and fine-tuning is continued. This approach allows the model's behavior to be analyzed as training progresses and helps investigate the relationship between additional fine-tuning, summarization quality, and potential overfitting.
 
-The model is initially trained for 3 epochs with increased dropout regularization.
-
-### Stage 2 — 6 Epochs
-
-The previously trained model is loaded and training is continued for another 3 epochs.
-
-### Stage 3 — 9 Epochs
-
-The 6-epoch model is loaded and training is continued for another 3 epochs.
-
-This produces three model checkpoints:
-
-```text
-3 Epochs
-6 Epochs
-9 Epochs
-```
-
-This progressive approach allows the project to analyze how additional training affects summarization quality and potential overfitting.
-
----
+The progressive training approach also supports comparison of model behavior across different training stages using both lexical and semantic evaluation metrics.
 
 ## 🛡️ Regularization
 
@@ -204,7 +184,7 @@ Dropout             = 0.2
 Attention Dropout   = 0.2
 ```
 
-The purpose of this configuration is to provide additional regularization during longer training runs and reduce the risk of overfitting.
+So, this provides additional regularization during longer training runs and reduce the risk of overfitting.
 
 ---
 
@@ -212,7 +192,7 @@ The purpose of this configuration is to provide additional regularization during
 
 After training, the fine-tuned model is loaded into a Hugging Face summarization pipeline.
 
-During inference, the project uses:
+During inference, the model uses:
 
 ```text
 Maximum Summary Length     = 128 tokens
@@ -260,9 +240,9 @@ The notebook reports the following validation results for the three training sta
 
 | Training Stage |     ROUGE-1 |     ROUGE-2 |     ROUGE-L | BERTScore F1 |
 | -------------: | ----------: | ----------: | ----------: | -----------: |
-|       3 Epochs | **58.6076** | **37.0028** | **38.9175** |      86.1309 |
-|       6 Epochs |     58.0580 |     36.8501 |     38.8543 |  **86.4534** |
-|       9 Epochs |     58.0705 | **37.0396** | **38.9347** |      86.4515 |
+|       3 Epochs | 58.6076 | 37.0028 | 38.9175 | 86.1309 |
+|       6 Epochs | 58.0580 | 36.8501 | 38.8543 | 86.4534 |
+|       9 Epochs | 58.0705 | 37.0396 | 38.9347 | 86.4515 |
 
 ### Observations
 
@@ -275,23 +255,6 @@ The notebook reports the following validation results for the three training sta
 
 ---
 
-## 📉 Training Analysis
-
-The project also analyzes model behavior across training epochs using:
-
-* Training loss
-* Validation loss
-* ROUGE progression
-* BERTScore progression
-* Summary length
-* Metric distributions
-* Metric correlations
-* Performance across different training stages
-* Qualitative comparison of generated summaries
-
-The validation-loss analysis shows that validation performance does not continually improve as training progresses, providing evidence that additional training needs to be evaluated carefully rather than assuming that more epochs always produce better summaries.
-
----
 
 ## 🔍 Qualitative Evaluation
 
@@ -316,30 +279,10 @@ Generated summaries are compared with their corresponding reference summaries to
 * Important information coverage
 * Similarity to the reference summary
 
-The notebook additionally demonstrates word-overlap visualization between generated and reference summaries.
+This demonstrates word-overlap visualization between generated and reference summaries.
 
 ---
 
-## 📊 Visualization & Analysis
-
-The project contains several visual analyses, including:
-
-* Overall model performance comparison
-* ROUGE and BERTScore progression
-* Training and validation loss
-* Performance heatmaps
-* ROUGE-2 vs. ROUGE-L comparison
-* BERTScore analysis
-* Qualitative summary comparison
-* Summary length analysis
-* Peak metric performance
-* Score distributions
-* Metric correlation analysis
-* Performance versus source article length
-
-These visualizations help analyze both model quality and training behavior.
-
----
 
 ## 💻 Training Environment
 
@@ -353,10 +296,6 @@ GPU: NVIDIA T4
 Framework: PyTorch
 Language: Python
 ```
-
-The notebook metadata specifies a **T4 GPU accelerator**.
-
----
 
 ## 🛠️ Tech Stack
 
@@ -373,45 +312,13 @@ The notebook metadata specifies a **T4 GPU accelerator**.
 
 ### Dataset
 
-* Hugging Face Datasets
-* CNN/DailyMail 3.0.0
+## 📊 Dataset
 
-### Evaluation
+ **CNN/DailyMail 3.0.0** dataset is used for abstractive text summarization.
 
-* ROUGE-1
-* ROUGE-2
-* ROUGE-L
-* BERTScore F1
+- **Dataset:** [CNN/DailyMail 3.0.0](https://huggingface.co/datasets/abisee/cnn_dailymail)
+- **Source:** Hugging Face Datasets
 
-### Data Processing
-
-* NumPy
-* Pandas
-
-### Visualization
-
-* Matplotlib
-* Seaborn
-
----
-
-## 📦 Main Libraries
-
-```text
-transformers
-datasets
-evaluate
-torch
-pandas
-numpy
-rouge_score
-accelerate
-bert_score
-matplotlib
-seaborn
-```
-
----
 
 ## 🚀 How to Run
 
@@ -448,6 +355,8 @@ Open the main Jupyter/Colab notebook:
 BART_Article_Summarization.ipynb
 ```
 
+## How Notebook Performs
+
 The notebook performs:
 
 ```text
@@ -473,122 +382,4 @@ ROUGE + BERTScore Evaluation
       ↓
 Performance Visualization
 ```
-
----
-
-## 📁 Recommended Repository Structure
-
-```text
-bart-article-summarization/
-│
-├── 📓 BART_Article_Summarization.ipynb
-│
-├── 📄 README.md
-│
-├── 📄 requirements.txt
-│
-├── 📁 results/
-│   ├── model_comparison.png
-│   ├── loss_curve.png
-│   ├── rouge_progression.png
-│   └── summary_comparison.png
-│
-├── 📁 models/
-│   └── README.md
-│
-└── 📄 .gitignore
-```
-
-### Important
-
-Do **not** upload large trained model folders directly to a normal GitHub repository unless you intentionally use Git LFS or another model-hosting solution.
-
-The trained BART checkpoints can consume significant storage.
-
-For a portfolio GitHub repository, it is usually better to include:
-
-* Notebook
-* README
-* Requirements
-* Results/plots
-* Example outputs
-
-and explain where the trained model can be obtained or reproduced.
-
----
-
-## 🎯 Key Highlights
-
-* Built an **abstractive text summarization system using BART**.
-* Fine-tuned `facebook/bart-base` on CNN/DailyMail.
-* Implemented a complete sequence-to-sequence preprocessing and training pipeline.
-* Used **512-token article inputs** and **128-token target summaries**.
-* Compared **3-, 6-, and 9-epoch training stages**.
-* Evaluated summaries using **ROUGE-1, ROUGE-2, ROUGE-L, and BERTScore F1**.
-* Used BERTScore to complement lexical ROUGE evaluation with semantic similarity analysis.
-* Implemented beam-search-based controlled text generation.
-* Added dropout regularization for extended training.
-* Performed quantitative and qualitative model analysis.
-* Created multiple visualizations to study model performance and training behavior.
-
----
-
-## 🔮 Future Improvements
-
-Potential extensions of the project include:
-
-* Fine-tuning on the complete available training split.
-* Comparing BART with models such as PEGASUS, T5, or newer encoder-decoder architectures.
-* Using larger BART checkpoints where computational resources permit.
-* Implementing longer-context summarization for articles exceeding 512 tokens.
-* Adding factuality-specific evaluation metrics.
-* Evaluating hallucination and factual consistency explicitly.
-* Developing an interactive web application for real-time summarization.
-* Deploying the model through an API.
-* Adding model quantization for faster inference.
-* Using human evaluation alongside automatic metrics.
-* Performing systematic hyperparameter optimization.
-
----
-
-## ⚠️ Limitations
-
-* The model is trained using a selected subset of the CNN/DailyMail training and validation data in the notebook.
-* Input articles are truncated to 512 tokens, so information appearing later in longer articles may not be processed.
-* ROUGE and BERTScore do not completely measure factual correctness.
-* Automatic metrics cannot fully replace human evaluation.
-* Some visualizations in the notebook use simulated data for demonstration/analysis purposes and should not be interpreted as direct per-example measurements from the full validation set.
-* The system should therefore be treated as a research/educational summarization model rather than a fully reliable factual reporting system.
-
----
-
-## 📚 Dataset
-
-**CNN/DailyMail Dataset — Version 3.0.0**
-
-The project loads the dataset using:
-
-```python
-load_dataset("cnn_dailymail", "3.0.0")
-```
-
-The dataset provides news articles paired with human-written highlights that serve as reference summaries.
-
----
-
-## 👩‍💻 Author
-
-**Drutika Pidikiti**
-
-### Project
-
-**Abstractive Text Summarization with Semantic and Contextual Alignment Using BART**
-
----
-
-## ⭐ Project Summary
-
-This project demonstrates an end-to-end approach to **abstractive text summarization using Transformer-based sequence-to-sequence learning**. By fine-tuning BART on CNN/DailyMail and evaluating generated summaries through both ROUGE and BERTScore, the project investigates the relationship between lexical overlap, semantic similarity, and training duration.
-
-The experiments show that increasing the number of training epochs does not necessarily improve every evaluation metric, highlighting the importance of balanced model selection and multi-dimensional evaluation in modern NLP summarization systems.
 
