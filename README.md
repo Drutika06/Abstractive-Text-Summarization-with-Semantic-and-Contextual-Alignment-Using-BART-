@@ -175,18 +175,6 @@ The model is trained through multiple training stages, where a previously traine
 
 The progressive training approach also supports comparison of model behavior across different training stages using both lexical and semantic evaluation metrics.
 
-## 🛡️ Regularization
-
-For the extended training experiments, the BART configuration was modified to use:
-
-```text
-Dropout             = 0.2
-Attention Dropout   = 0.2
-```
-
-So, this provides additional regularization during longer training runs and reduce the risk of overfitting.
-
----
 
 ## ✨ Summary Generation
 
@@ -244,51 +232,18 @@ The notebook reports the following validation results for the three training sta
 |       6 Epochs | 58.0580 | 36.8501 | 38.8543 | 86.4534 |
 |       9 Epochs | 58.0705 | 37.0396 | 38.9347 | 86.4515 |
 
-### Observations
-
-* The **3-epoch model** achieved the highest ROUGE-1 score.
-* The **9-epoch model** achieved the highest ROUGE-2 and ROUGE-L scores.
-* The **6-epoch model** achieved the highest BERTScore F1.
-* BERTScore remained relatively stable across the three training stages.
-* Additional training did not produce a consistent improvement across every metric.
-* The results demonstrate the importance of evaluating summarization using both lexical and semantic metrics rather than relying on a single score.
 
 ---
 
 
 ## 🔍 Qualitative Evaluation
 
-The project also performs qualitative comparisons between:
-
-```text
-Reference Summary
-       ↓
-3-Epoch Model
-       ↓
-6-Epoch Model
-       ↓
-9-Epoch Model
-```
-
-Generated summaries are compared with their corresponding reference summaries to examine:
-
-* Content preservation
-* Conciseness
-* Contextual coherence
-* Redundancy
-* Important information coverage
-* Similarity to the reference summary
-
-This demonstrates word-overlap visualization between generated and reference summaries.
+Generated summaries are compared with their corresponding reference summaries to examine Content preservation, Conciseness, Contextual coherence, Redundancy, Important information coverage, Similarity to the reference summary. This demonstrates word-overlap visualization between generated and reference summaries.
 
 ---
 
 
 ## 💻 Training Environment
-
-The notebook is configured for GPU-based training and was developed in a Google Colab environment.
-
-### Environment
 
 ```text
 Platform: Google Colab
@@ -309,8 +264,6 @@ Language: Python
 * BART
 * Hugging Face Tokenizers
 * BERTScore
-
-### Dataset
 
 ## 📊 Dataset
 
@@ -355,31 +308,4 @@ Open the main Jupyter/Colab notebook:
 BART_Article_Summarization.ipynb
 ```
 
-## How Notebook Performs
-
-The notebook performs:
-
-```text
-Dataset Loading
-      ↓
-Dataset Inspection
-      ↓
-BART Initialization
-      ↓
-Tokenization
-      ↓
-Data Collation
-      ↓
-Model Training
-      ↓
-Validation
-      ↓
-Model Saving
-      ↓
-Inference
-      ↓
-ROUGE + BERTScore Evaluation
-      ↓
-Performance Visualization
-```
 
