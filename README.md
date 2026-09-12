@@ -7,6 +7,16 @@ The model is fine-tuned on the **CNN/DailyMail 3.0.0 dataset** using **Hugging F
 
 ---
 
+## 📄 Research Publication
+
+This project was published as a conference paper at the **2025 International Conference on Signal Processing, Computation, Electronics, Power and Telecommunication (IConSCEPT)**, IEEE.
+
+**Paper:** *Abstractive Text Summarization with Semantic and Contextual Alignment Using BART*
+
+- 📑 **IEEE Xplore:** [View Published Paper](https://ieeexplore.ieee.org/document/11436141)
+- 🔗 **DOI:** [10.1109/IConSCEPT66142.2025.11436141](https://doi.org/10.1109/IConSCEPT66142.2025.11436141)
+- 🏛️ **Publisher:** IEEE
+
 ## 🎯 Objectives
 
 * **Abstractive Summarization:** Generate new summaries rather than simply extracting sentences from the source article.
