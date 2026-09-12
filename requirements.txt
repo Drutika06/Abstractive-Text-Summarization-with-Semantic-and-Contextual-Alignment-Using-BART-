@@ -1,0 +1,11 @@
+torch
+transformers
+datasets
+evaluate
+rouge_score
+bert_score
+accelerate
+pandas
+numpy
+matplotlib
+seaborn
